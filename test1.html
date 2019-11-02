@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>输出网站名称和网址</title>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+<body>
+<div id="example"></div>
+<script type="text/babel">
+    class Name extends React.Component{
+        constructor(props){
+            super(props);
+            this.state={name:props.name};
+        }
+        render(){
+            return <h1>网站名称：{this.state.name}</h1>
+        }
+    }
+    function Url(props) {
+        return <h1>网站地址：{props.url}</h1>;
+    }
+    function Nickname(props) {
+        return <h1>网站小名：{props.nickname}</h1>;
+    }
+    function App() {
+        return (
+                <div>
+                    <Name name="哈哈哈" />
+                    <Url url="http://www.hhh.com" />
+                    <Nickname nickname="hahaha" />
+                </div>
+        );
+    }
+
+    ReactDOM.render(
+            <App />,
+        document.getElementById('example')
+    );
+</script>
+</body>
+</html>

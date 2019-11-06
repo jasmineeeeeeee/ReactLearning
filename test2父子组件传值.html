@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>父子组件通过state和props传递值</title>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+<body>
+    <div id="test2"></div>
+    <script type="text/babel">
+        class Parent extends React.Component{
+            constructor(){
+                super();
+                this.state={name:"test2"};
+            }
+            render(){
+                return(
+                    <div>
+                        <Child name={this.state.name}/>
+                    </div>
+                )
+            }
+        }
+        class Child extends React.Component{
+            render(){
+                return(
+                    <h1>{this.props.name}</h1>
+                )
+            }
+        }
+        ReactDOM.render(
+            <Parent/>,document.getElementById('test2')
+        )
+    </script>
+</body>
+</html>

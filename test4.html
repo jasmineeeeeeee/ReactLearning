@@ -2,9 +2,41 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>组件的生命周期</title>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
 </head>
 <body>
-$END$
+    <div id="test4"></div>
+    <script type="text/babel">
+        class MyAnimation extends React.Component{
+            constructor(props){
+                super(props);
+                this.state = {opacity:1.0}
+            }
+            componentDidMount(){
+                this.timer = setInterval(function () {
+                    var o = this.state.opacity;
+                    o -= .05;//透明度每次减少0.05
+                    if(o < 0.1)o=1.0;
+                    this.setState({
+                        opacity:o
+                    })
+                }.bind(this),300);
+            }
+            render () {
+                return (
+                        <div style={{opacity: this.state.opacity}}>
+                            Hello {this.props.name}
+                        </div>
+                );
+            }
+        }
+        ReactDOM.render(
+                <MyAnimation name="world"/>,
+            document.getElementById('test4')
+        );
+    </script>
 </body>
 </html>

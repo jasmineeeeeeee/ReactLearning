@@ -2,9 +2,65 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>父子组件通信</title>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
 </head>
 <body>
-$END$
+    <div id="test5"></div>
+    <script type="text/babel">
+        class App extends React.Component {
+            constructor(props){
+                super(props);
+                this.state={
+                    msg:'父类的消息',
+                    name:'John',
+                    age:99
+                }
+            }
+
+            callback=(msg,name,age)=>{
+                // setState方法,修改msg的值,值是由child里面传过来的
+                this.setState({msg});
+                this.setState({name});
+                this.setState({age});
+            }
+
+            render() {
+                return (
+                        <div className="App">
+                            <p> Message: &nbsp;&nbsp;{this.state.msg}</p>
+                            <Child callback={this.callback} age={this.state.age} name={this.state.name}></Child>
+                        </div>
+                );
+            }
+        }
+        class Child extends React.Component{
+            constructor(props){
+                super(props);
+                this.state={
+                    name:'Andy',
+                    age:31,
+                    msg:"来自子类的消息"
+                }
+            }
+            change=()=>{
+                this.props.callback(this.state.msg,this.state.name,this.state.age);
+            }
+            render(){
+                return(
+                        <div>
+                            <div>{this.props.name}</div>
+                            <div>{this.props.age}</div>
+                            <button onClick={this.change}>点击</button>
+                        </div>
+                )
+            }
+        }
+        ReactDOM.render(
+            <App />,document.getElementById('test5')
+        )
+    </script>
 </body>
 </html>
